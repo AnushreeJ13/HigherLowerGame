@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import commodityData from "./data.json";
 import "./index.css";
-import StartScreen from "./StartScreen.js";
-import GameScreen from "./GameScreen.js";
-import EndScreen from "./EndScreen.js";
-import LoadingScreen from "./LoadingScreen.js";
+import StartScreen from "./StartScreen";
+import GameScreen from "./GameScreen";
+import EndScreen from "./EndScreen";
+import LoadingScreen from "./LoadingScreen";
 
 function App() {
   const [screen, setScreen] = useState("start");
