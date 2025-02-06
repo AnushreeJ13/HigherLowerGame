@@ -1,146 +1,375 @@
-import React from "react"
-import { fetchManga } from './MangaObj.js'
+// GameScreen.js
+import React, { useState, useEffect, useRef } from "react";
+import { Howl } from "howler";
+import { fetchCommodity } from "./CommodityObj";
+import backgroundMusic from "./sounds/background.mp3";
 
-function MangaDisplay(props) {
-    //var that animates metric, clicked shows components
-    const [aniMetric, setAniMetric] = React.useState(0)
-    const [clicked, setClicked] = React.useState(false)
+// Import sound files explicitly
+import correctSound from "./sounds/correct.mp3";
+import wrongSound from "./sounds/wrong.mp3";
+import clickSound from "./sounds/click.mp3";
 
-    function reset() {
-        setClicked(false)
-        setAniMetric(0)
+const sounds = {
+  correct: new Howl({ src: [correctSound] }),
+  wrong: new Howl({ src: [wrongSound] }),
+  flip: new Howl({ src: [clickSound] })
+};
+
+// Helper to return different placeholder images for left/right cards.
+const getPlaceholderImage = (side) => {
+  if (side === "left") return "/images/placeholder1.png";
+  if (side === "right") return "/images/placeholder2.png";
+  return "/images/placeholder.png";
+};
+
+// Helper to get unique commodity
+const getUniqueCommodity = (cData, excludeCommodity = null) => {
+  let newCommodity;
+  do {
+    newCommodity = fetchCommodity(cData);
+  } while (excludeCommodity && newCommodity.name === excludeCommodity.name);
+  return newCommodity;
+};
+
+function GameScreen({
+  cData,
+  score,
+  setScore,
+  highScore,
+  setHighScore,
+  handleLoss,
+  gameMode,
+  isMusicOn,
+  metricToggle
+}) {
+  // Timer: For Beat The Clock mode, timer starts at 15 seconds.
+  const initialTimer = gameMode === "Beat The Clock" ? 15 : null;
+  const [timerValue, setTimerValue] = useState(initialTimer);
+
+  // Dual mode states.
+  const [leftCommodity, setLeftCommodity] = useState(null);
+  const [rightCommodity, setRightCommodity] = useState(null);
+  // Single mode state.
+  const [currentCommodity, setCurrentCommodity] = useState(null);
+
+  // Common state: track if answer submitted and the result.
+  const [answerSubmitted, setAnswerSubmitted] = useState(false);
+  const [result, setResult] = useState(null);
+  const wrapperRef = useRef(null);
+  const musicRef = useRef(null);
+
+  // Refs for swipe detection (if using pointer input)
+  const startXRef = useRef(null);
+  const startYRef = useRef(null);
+
+  // Initialize commodities when data or mode changes.
+  useEffect(() => {
+    if (metricToggle) {
+      // Dual Comparison mode – ensure different commodities
+      const left = fetchCommodity(cData);
+      const right = getUniqueCommodity(cData, left);
+      setLeftCommodity(left);
+      setRightCommodity(right);
+      setAnswerSubmitted(false);
+      setResult(null);
+    } else {
+      // Single Price Prediction mode.
+      setCurrentCommodity(fetchCommodity(cData));
+      setAnswerSubmitted(false);
+      setResult(null);
+      setTimerValue(initialTimer);
     }
+  }, [cData, metricToggle, initialTimer]);
 
-    var animate = (metric) => setAniMetric(prevState => prevState + Math.round(metric / 100))
+  // Background music effect with unload when off.
+  useEffect(() => {
+    if (isMusicOn) {
+      musicRef.current = new Howl({
+        src: [backgroundMusic],
+        loop: true,
+        volume: 0.5,
+        html5: true,
+        onload: () => console.log("Background music loaded"),
+        onloaderror: (id, error) =>
+          console.error("Error loading background music:", error)
+      });
+      musicRef.current.play();
+    } else {
+      if (musicRef.current) {
+        musicRef.current.unload();
+        musicRef.current = null;
+      }
+    }
+    return () => {
+      if (musicRef.current) {
+        musicRef.current.unload();
+        musicRef.current = null;
+      }
+    };
+  }, [isMusicOn]);
 
-    function updateAniMetric(counter, higherClicked) {
-        if (counter < 100) {
-            props.metricToggle ? animate(props.mList.score) : animate(props.mList.members)
-            setTimeout(() => updateAniMetric(counter += 1, higherClicked), 5)
+  // Timer logic for Beat The Clock (applies for both dual and single modes).
+  useEffect(() => {
+    if (gameMode === "Beat The Clock" && timerValue > 0) {
+      const interval = setInterval(() => {
+        setTimerValue((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    } else if (gameMode === "Beat The Clock" && timerValue === 0) {
+      handleLoss();
+    }
+  }, [timerValue, gameMode, handleLoss]);
+
+  // New helper function to animate all commodity cards.
+  // 'animationClass' should be "swipe-right-card" or "swipe-left-card"
+  const animateCards = (animationClass, callback) => {
+    const cards = wrapperRef.current.querySelectorAll(".commodity-card");
+    if (cards.length === 0) {
+      callback();
+      return;
+    }
+    let animatedCount = 0;
+    cards.forEach((card) => {
+      card.classList.add(animationClass);
+      const handleEnd = () => {
+        card.classList.remove(animationClass);
+        card.removeEventListener("animationend", handleEnd);
+        animatedCount++;
+        if (animatedCount === cards.length) {
+          callback();
         }
-        else {
-            props.metricToggle ? setAniMetric(props.mList.score) : setAniMetric(props.mList.members)
-            higherClicked ? props.handleButtons(true) : props.handleButtons(false)
-            setTimeout(reset, 1000)
+      };
+      card.addEventListener("animationend", handleEnd);
+    });
+  };
+
+  // Handler for Dual Comparison answer.
+  const handleDualAnswer = (choice) => {
+    if (answerSubmitted) return;
+    setAnswerSubmitted(true);
+    sounds.flip.play();
+
+    const leftPrice = leftCommodity.price;
+    const rightPrice = rightCommodity.price;
+    const isCorrect =
+      choice === "higher" ? rightPrice > leftPrice : rightPrice < leftPrice;
+
+    // For correct answer, swipe cards to the right; for wrong, swipe left.
+    const animationClass = isCorrect ? "swipe-right-card" : "swipe-left-card";
+    animateCards(animationClass, () => {
+      setResult(isCorrect ? "correct" : "wrong");
+      sounds[isCorrect ? "correct" : "wrong"].play();
+
+      setTimeout(() => {
+        if (isCorrect) {
+          setScore((prev) => {
+            const newScore = prev + 1;
+            if (newScore > highScore) setHighScore(newScore);
+            return newScore;
+          });
+          if (gameMode === "Beat The Clock") {
+            setTimerValue(15);
+          }
+          // In dual mode, the right card becomes the new left.
+          setLeftCommodity(rightCommodity);
+          setRightCommodity(getUniqueCommodity(cData, rightCommodity));
+          setAnswerSubmitted(false);
+          setResult(null);
+        } else {
+          handleLoss();
         }
-    }
+      }, 500);
+    });
+  };
 
-    function handleClick(higherClicked) {
-        setClicked(true)
-        updateAniMetric(0, higherClicked)
-    }
+  // Handler for Single Price Prediction answer.
+  const handleSingleAnswer = (choice) => {
+    if (answerSubmitted) return;
+    setAnswerSubmitted(true);
+    sounds.flip.play();
 
-    function interpret(x) {
-        if (props.metricToggle) return x.toString().slice(0, 1) + '.' + x.toString().slice(1)
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    }
+    const currentPrice = currentCommodity.price;
+    const nextCommodity = fetchCommodity(cData);
+    const nextPrice = nextCommodity.price;
+    const isCorrect =
+      choice === "higher" ? nextPrice > currentPrice : nextPrice < currentPrice;
 
+    const animationClass = isCorrect ? "swipe-right-card" : "swipe-left-card";
+    animateCards(animationClass, () => {
+      setResult(isCorrect ? "correct" : "wrong");
+      sounds[isCorrect ? "correct" : "wrong"].play();
+
+      setTimeout(() => {
+        if (isCorrect) {
+          setScore((prev) => {
+            const newScore = prev + 1;
+            if (newScore > highScore) setHighScore(newScore);
+            return newScore;
+          });
+          setCurrentCommodity(nextCommodity);
+          setAnswerSubmitted(false);
+          setResult(null);
+          if (gameMode === "Beat The Clock") {
+            setTimerValue(15);
+          }
+        } else {
+          handleLoss();
+        }
+      }, 500);
+    });
+  };
+
+  // --- Swipe Detection (for pointer/mouse input) ---
+  const handlePointerDown = (e) => {
+    startXRef.current = e.clientX;
+    startYRef.current = e.clientY;
+  };
+
+  const handlePointerUp = (e) => {
+    if (startXRef.current === null) return;
+    const diffX = e.clientX - startXRef.current;
+    // Set threshold for swipe detection (50px)
+    if (Math.abs(diffX) > 50 && !answerSubmitted) {
+      // Determine answer from swipe direction:
+      // Right swipe → answer "higher"
+      // Left swipe → answer "lower"
+      const swipeChoice = diffX > 0 ? "higher" : "lower";
+      if (metricToggle) {
+        handleDualAnswer(swipeChoice);
+      } else {
+        handleSingleAnswer(swipeChoice);
+      }
+    }
+    startXRef.current = null;
+    startYRef.current = null;
+  };
+
+  // --- Render UI based on mode ---
+  if (metricToggle) {
+    // Dual Comparison UI.
     return (
-        <div id={props.id} className={props.style.concat(" manga_box")}>
-            <div className="overlay"></div>
-            <img src={props.mList.image} alt={props.mList.name} />
-            <div className="manga_info">
-                <h1>{props.mList.name}</h1>
-                <h3>{props.metricToggle ? "has a" : "has"}</h3>
-                {clicked && <div className="ani_metric_text">{interpret(aniMetric)}</div>}
-                <div className="metric_text">
-                    {props.metricToggle ? props.mList.scoreStr : props.mList.memberStr}
+      <div
+        className="wrapper"
+        ref={wrapperRef}
+        onMouseDown={handlePointerDown}
+        onMouseUp={handlePointerUp}
+      >
+        {gameMode === "Beat The Clock" && timerValue !== null && (
+          <div className="timer">⏳ {timerValue}s</div>
+        )}
+        <div className="dual-container">
+          {/* Left Commodity Card */}
+          <div className="commodity-card dual-card">
+            {leftCommodity && (
+              <>
+                <img
+                  src={leftCommodity.image || getPlaceholderImage("left")}
+                  alt={leftCommodity.name}
+                  className="commodity-image"
+                />
+                <h2>{leftCommodity.name}</h2>
+                <div className="price">
+                  ${leftCommodity.price.toFixed(2)}
                 </div>
-                {!clicked && <div className="button_container">
-                    <button onClick={() => handleClick(true)}>Higher</button>
-                    <button onClick={() => handleClick(false)}>Lower</button>
-                </div>}
-                <h3 className="diff">{props.metricToggle ? "score" : "members"}</h3>
-            </div>
+              </>
+            )}
+          </div>
+          {/* Right Commodity Card */}
+          <div className="commodity-card dual-card">
+            {rightCommodity && (
+              <>
+                <img
+                  src={rightCommodity.image || getPlaceholderImage("right")}
+                  alt={rightCommodity.name}
+                  className="commodity-image"
+                />
+                <h2>{rightCommodity.name}</h2>
+                {answerSubmitted ? (
+                  <div className="price">
+                    ${rightCommodity.price.toFixed(2)}
+                  </div>
+                ) : (
+                  <div className="price hidden-price">???</div>
+                )}
+              </>
+            )}
+          </div>
         </div>
-    )
-}
-
-function GameScreen(props) {
-    const [order, setOrder] = React.useState([0, 1, 2, 3])
-    const [stylePos, setStylePos] = React.useState(["pos_0", "pos_1", "pos_2", "pos_3"])
-    const [mList, setMList] = React.useState([{}, {}, {}, {}])
-    const [animateButton, setAnimateButton] = React.useState(false)
-
-    //Inital fetchManga() is only called when first started
-    React.useEffect(() => {
-        setMList([{}, fetchManga(props.mData, props.numManga), fetchManga(props.mData, props.numManga), {}])
-    }, [props.mData, props.numManga]);
-
-    function determineNewManga(prevMList) {
-        let mangaArr = prevMList
-        console.log(props.numManga)
-        //more accurate mod arithmetic done with order[3] % 4
-        mangaArr[((order[3] % 4) + 4) % 4] = fetchManga(props.mData, props.numManga)
-        return mangaArr
-    }
-
-    function handleLogic() {
-        props.handleScore()
-        setOrder(prevOrder => prevOrder.slice(1).concat(prevOrder[0]))
-        setStylePos(prevStyles => [prevStyles[3]].concat(prevStyles.slice(0, 3)))
-        setMList(prevMList => determineNewManga(prevMList))
-        setAnimateButton(false)
-    }
-
-    function handleCorrect() {
-        setAnimateButton(true)
-        setTimeout(handleLogic, 1000)
-    }
-
-    function checkMetric() {
-        if (props.metricToggle) return (mList[order[1]].score <= mList[order[2]].score)
-        return (mList[order[1]].members <= mList[order[2]].members)
-    }
-
-    function handleButtons(higherButton) {
-        higherButton ? (checkMetric() ? handleCorrect() : props.handleLoss()) : (checkMetric() ? props.handleLoss() : handleCorrect())
-    }
-
+        {!answerSubmitted && (
+          <div className="dual-buttons">
+            <button onClick={() => handleDualAnswer("higher")}>
+              Higher
+            </button>
+            <button onClick={() => handleDualAnswer("lower")}>
+              Lower
+            </button>
+          </div>
+        )}
+        {result && (
+          <div className={`result-overlay ${result}`}>
+            {result === "correct" ? "✔" : "✖"}
+          </div>
+        )}
+        <div className="score-board">
+          <div className="high-score">High Score: {highScore}</div>
+          <div className="current-score">Score: {score}</div>
+        </div>
+      </div>
+    );
+  } else {
+    // Single Price Prediction UI.
     return (
-        <div className="container">
-            <MangaDisplay
-                id={0}
-                mList={mList[0]}
-                style={stylePos[0]}
-                current={order[1]}
-                handleButtons={handleButtons}
-                metricToggle={props.metricToggle}
-            />
-            <MangaDisplay
-                id={1}
-                mList={mList[1]}
-                style={stylePos[1]}
-                current={order[1]}
-                handleButtons={handleButtons}
-                metricToggle={props.metricToggle}
-            />
-            <MangaDisplay
-                id={2}
-                mList={mList[2]}
-                style={stylePos[2]}
-                current={order[1]}
-                handleButtons={handleButtons}
-                metricToggle={props.metricToggle}
-            />
-            <MangaDisplay
-                id={3}
-                mList={mList[3]}
-                style={stylePos[3]}
-                current={order[1]}
-                handleButtons={handleButtons}
-                metricToggle={props.metricToggle}
-            />
-
-            <button className="exit" onClick={props.handleLoss}>{"\u2715"}</button>
-            <div id="middle_circle" className={animateButton ? "to_disappear" : "to_appear"}>
-                <h1>VS</h1>
-            </div>
-            <h4 className="highscore">High Score: {props.highScore}</h4>
-            <h4 className="score">Score: {props.score}</h4>
-            <h4 className="credits">Data sourced from <a target={"_blank"} rel="noreferrer" href="https://myanimelist.net/topmanga.php?type=bypopularity">MyAnimeList</a></h4>
+      <div
+        className="wrapper"
+        ref={wrapperRef}
+        onMouseDown={handlePointerDown}
+        onMouseUp={handlePointerUp}
+      >
+        {gameMode === "Beat The Clock" && timerValue !== null && (
+          <div className="timer">⏳ {timerValue}s</div>
+        )}
+        <div className="single-container">
+          <div className="commodity-card single-card">
+            {currentCommodity && (
+              <>
+                <img
+                  src={
+                    currentCommodity.image ||
+                    "/images/placeholder.png"
+                  }
+                  alt={currentCommodity.name}
+                  className="commodity-image"
+                />
+                <h2>{currentCommodity.name}</h2>
+                <div className="price">
+                  ${currentCommodity.price.toFixed(2)}
+                </div>
+              </>
+            )}
+          </div>
         </div>
-    )
+        {!answerSubmitted && (
+          <div className="single-buttons">
+            <button onClick={() => handleSingleAnswer("lower")}>
+              Lower
+            </button>
+            <button onClick={() => handleSingleAnswer("higher")}>
+              Higher
+            </button>
+          </div>
+        )}
+        {result && (
+          <div className={`result-overlay ${result}`}>
+            {result === "correct" ? "✔" : "✖"}
+          </div>
+        )}
+        <div className="score-board">
+          <div className="high-score">High Score: {highScore}</div>
+          <div className="current-score">Score: {score}</div>
+        </div>
+      </div>
+    );
+  }
 }
 
-export { GameScreen }
+export default GameScreen;

@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Gold",
+        "symbol": "GOLD",
+        "price":2134.50,
+        "image": "/images/gold.jpg"
+    },
+    {
+        "name": "Crude Oil",
+        "symbol": "OIL", 
+        "price": 78.35,
+        "image":"/images/crude_oil.avif"
+    },
+    {
+        "name": "Wheat",
+        "symbol": "WHEAT",
+        "price": 685.25,
+        "image":"/images/wheat.jpg"
+    },
+    {
+        "name": "Silver",
+        "symbol": "SILVER",
+        "price": 25.80,
+        "image":"/images/silver.jpeg"
+    },
+    {
+        "name": "Copper",
+        "symbol": "COPPER",
+        "price": 4.22,
+       "image":"/images/copper.jpeg"
+    },
+    {
+        "name": "Natural Gas",
+        "symbol": "NAT_GAS",
+        "price": 2.75,
+        "image":"/images/natural_gas.jpeg"
+    },
+    {
+        "name": "Platinum",
+        "symbol": "PLATINUM",
+        "price": 980.60,
+        "image":"/images/platinum.jpeg"
+    },
+    {
+        "name": "Corn",
+        "symbol": "CORN",
+        "price": 540.75,
+        "image":"/images/corn.jpeg"
+    },
+    {
+        "name": "Palladium",
+        "symbol": "PALLADIUM",
+        "price": 1250.40,
+        "image":"/images/palladium.jpg"
+    },
+    {
+        "name": "Soybeans",
+        "symbol": "SOYBEANS",
+        "price": 620.15,
+        "image":"/images/soyabean.webp"
+    }
+]

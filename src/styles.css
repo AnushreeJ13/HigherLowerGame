@@ -1,0 +1,49 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: #1a1a1a;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+.commodity-card {
+    background: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.metric-toggle button.active {
+    background: #4CAF50;
+}
+
+.vs-circle {
+    width: 60px;
+    height: 60px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.score-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.7);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.end-container {
+    text-align: center;
+}
+
+/* Add more styles for animations and responsive design */
