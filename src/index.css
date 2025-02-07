@@ -8,12 +8,13 @@
   box-sizing: border-box;
 }
 
-/* Global Cursor – change to a custom image (fallback to auto) */
+/* Global Cursor & Base Styles */
 html, body {
   background-color: black;
   font-family: 'Kanit', sans-serif;
   height: 100%;
-  overflow: hidden;
+  /* Remove hidden overflow so mobile users can scroll if content exceeds viewport */
+  /* overflow: hidden; */
   overflow-x: hidden;
   cursor: url('/public/images/gold.jpg') 16 16, default;
   scroll-behavior: smooth;
@@ -33,7 +34,7 @@ html, body {
   --correct-color: #206d22;
 }
 
-/* Smooth Transition Base */
+/* Smooth Transition Base for Animated Elements */
 [data-animation] {
   opacity: 0;
   transition: transform 1s var(--ease-power4), opacity 1s var(--ease-power4);
@@ -66,7 +67,7 @@ html, body {
   60% { opacity: 0.7; }
 }
 
-/* 3D Card Effect */
+/* 3D Card Effect (First Instance) */
 .commodity-card {
   perspective: 1500px;
   transform-style: preserve-3d;
@@ -76,8 +77,9 @@ html, body {
   transform: translateZ(40px) rotateX(4deg) rotateY(4deg) rotateZ(-0.9deg);
 }
 
-/* Start Screen - Centered Concise Layout */
+/* Start Screen - Centered Layout */
 .start-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,7 +94,7 @@ html, body {
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 /* Header Animations */
@@ -117,11 +119,11 @@ html, body {
 }
 @keyframes slideDown {
   from { transform: translateY(-30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(0); opacity: 1; }
 }
 @keyframes floating {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  50%      { transform: translateY(-20px); }
 }
 
 /* Game Mode Buttons (Start Screen) */
@@ -134,7 +136,7 @@ html, body {
 .game-mode-button {
   padding: 15px 30px;
   background-color: var(--primary-color);
-  border: 1px;
+  border: 1px solid transparent;
   border-radius: 10px;
   color: rgb(10, 43, 22);
   font-size: 20px;
@@ -143,8 +145,8 @@ html, body {
   animation: pulse 2s infinite;
 }
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
 .game-mode-button:hover {
@@ -246,7 +248,7 @@ html, body {
   color: black;
 }
 
-/* Quit Button (for quitting the game in between) */
+/* Quit Button */
 .quit-button {
   position: fixed;
   bottom: 5px;
@@ -284,7 +286,7 @@ html, body {
   align-items: center;
 }
 
-/* Uniform size for dual & single cards */
+/* Uniform Size for Dual & Single Cards */
 .dual-card,
 .single-card {
   width: 300px;
@@ -297,7 +299,7 @@ html, body {
   border: 3px solid rgba(200, 200, 200, 0.3);
 }
 
-/* Image Styling: Consistent size & object-fit */
+/* Image Styling */
 .commodity-image {
   width: 100%;
   height: 60%;
@@ -398,7 +400,7 @@ html, body {
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 .correct { color: var(--correct-color); }
-.wrong { color: var(--accent-color); }
+.wrong   { color: var(--accent-color); }
 
 /* Scoreboard */
 .score-board {
@@ -447,107 +449,13 @@ html, body {
   color: black;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  /* Header & End Screen Font Adjustments */
-  .header-animation h1,
-  .end-container h2 {
-    font-size: 40px;
-  }
-  .end-container p {
-    font-size: 28px;
-  }
+/* --- Duplicate/Additional Global Smooth Scroll & Animation Styles --- */
 
-  /* Button Adjustments */
-  .metric-toggle button,
-  .game-mode-button,
-  .end-buttons button {
-    font-size: 30px;
-    padding: 10px 15px;
-  }
-
-  /* Commodity Card Adjustments */
-  .dual-card,
-  .single-card {
-    width: 90%;
-    height: auto;
-    padding: 20px;
-  }
-  .commodity-image {
-    height: auto;
-  }
-
-  /* Layout Adjustments for Comparison Mode */
-  .dual-container {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  /* Timer font size adjustment */
-  .timer {
-    font-size: 2rem;
-  }
-
-  /* Settings Panel Adjustments */
-  .settings-panel {
-    width: 70%;
-    max-width: none;
-    right: 5%;
-    top: auto;
-    bottom: 5%;
-    transform: translate(0, 0);
-  }
-}
-
-@media screen and (max-width: 480px) {
-  /* Further reduce font sizes and margins */
-  .header-animation h1,
-  .end-container h2 {
-    font-size: 32px;
-  }
-  .metric-toggle button,
-  .game-mode-button,
-  .end-buttons button {
-    font-size: 24px;
-    padding: 8px 12px;
-  }
-
-  /* Commodity Card Adjustments */
-  .dual-card,
-  .single-card {
-    width: 95%;
-    padding: 15px;
-  }
-
-  /* Timer Adjustments */
-  .timer {
-    font-size: 1.8rem;
-  }
-
-  /* End Screen Text Adjustments */
-  .end-container h2 {
-    font-size: 72px;
-  }
-  .end-container p {
-    font-size: 32px;
-  }
-}
-
-/* Global Smooth Scroll Behavior */
-
-/* Global Animation Styles */
-:root {
-  --ease-power4: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-elastic: cubic-bezier(0.5, 1.75, 0.75, 1.25);
-}
-
-/* Smooth Transition Base */
+/* (Re-declaring the same [data-animation] rules for emphasis) */
 [data-animation] {
   opacity: 0;
   transition: transform 1s var(--ease-power4), opacity 1s var(--ease-power4);
 }
-
-/* Scroll Triggered Animations */
 [data-animation="fade-up"] { transform: translateY(50px); }
 [data-animation="fade-down"] { transform: translateY(-50px); }
 [data-animation="fade-left"] { transform: translateX(50px); }
@@ -557,7 +465,7 @@ html, body {
   transform: none !important;
 }
 
-/* 3D Card Effect */
+/* 3D Card Effect (Second Instance - This will override the first) */
 .commodity-card {
   perspective: 1000px;
   transform-style: preserve-3d;
@@ -567,7 +475,7 @@ html, body {
   transform: translateZ(20px) rotateX(1deg) rotateY(1deg) rotateZ(-0.5deg);
 }
 
-/* Glitch Text Effect */
+/* Glitch Text Effect for .result-overlay */
 @keyframes text-glitch {
   0% { clip-path: inset(0 0 97% 0); }
   15% { clip-path: inset(0 0 15% 0); }
@@ -581,7 +489,7 @@ html, body {
   animation: text-glitch 0.8s steps(2) infinite alternate, popIn 0.5s var(--ease-power4);
 }
 
-/* Enhanced Pop Animation */
+/* Enhanced Pop Animation for .result-overlay */
 @keyframes enhanced-pop {
   0% {
     transform: translate(-50%, -50%) scale(0);
@@ -602,7 +510,7 @@ html, body {
   animation: enhanced-pop 0.8s var(--ease-elastic);
 }
 
-/* Floating Animation for Header */
+/* Floating Animation for Header (Re-declared) */
 @keyframes floating {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
@@ -611,7 +519,7 @@ html, body {
   animation: floating 6s infinite var(--ease-power4);
 }
 
-/* Elastic Button Animation (for game mode buttons) */
+/* Elastic Button Animation for Game Mode Buttons */
 @keyframes button-elastic {
   0% { transform: scale(1); }
   30% { transform: scale(0.95); }
@@ -652,7 +560,7 @@ button:active {
   transform: scale(0.95);
 }
 
-/* Loading Container */
+/* Loading Container & Spinner */
 .loading-container {
   position: fixed;
   top: 0;
@@ -665,21 +573,17 @@ button:active {
   background-color: black;
   z-index: 1000;
 }
-
 .loading-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
 }
-
-/* Spinner Animation */
 .loading-spinner {
   width: 80px;
   height: 80px;
   position: relative;
 }
-
 .spinner-ring {
   width: 100%;
   height: 100%;
@@ -689,8 +593,6 @@ button:active {
   border-left-color: white;
   animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
 }
-
-/* Loading Text */
 .loading-text {
   color: white;
   font-size: 1.2rem;
@@ -698,19 +600,16 @@ button:active {
   letter-spacing: 2px;
   animation: pulse 1.5s ease-in-out infinite;
 }
-
-/* Animations */
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
 @keyframes pulse {
   0%, 100% { opacity: 0.5; }
   50% { opacity: 1; }
 }
 
-/* Swipe animations for commodity cards */
+/* Swipe Animations for Commodity Cards */
 
 /* Swipe card to the right (for correct answers) */
 @keyframes swipe-right-card {
@@ -735,11 +634,95 @@ button:active {
     opacity: 0;
   }
 }
-
 .swipe-right-card {
   animation: swipe-right-card 0.6s forwards;
 }
-
 .swipe-left-card {
   animation: swipe-left-card 0.6s forwards;
+}
+
+/* ---------------- Responsive Design ---------------- */
+@media screen and (max-width: 768px) {
+  /* Header & End Screen Font Adjustments */
+  .header-animation h1,
+  .end-container h2 {
+    font-size: 40px;
+  }
+  .end-container p {
+    font-size: 28px;
+  }
+
+  /* Button Adjustments */
+  .metric-toggle button,
+  .game-mode-button,
+  .end-buttons button {
+    font-size: 30px;
+    padding: 10px 15px;
+  }
+
+  /* Commodity Card Adjustments */
+  .dual-card,
+  .single-card {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+  }
+  .commodity-image {
+    height: auto;
+  }
+
+  /* Dual Comparison Mode: Stack Cards Vertically */
+  .dual-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Timer Font Size Adjustment */
+  .timer {
+    font-size: 2rem;
+  }
+
+  /* Settings Panel Adjustments */
+  .settings-panel {
+    width: 70%;
+    max-width: none;
+    right: 5%;
+    top: auto;
+    bottom: 5%;
+    transform: translate(0, 0);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Further reduce header & end screen fonts */
+  .header-animation h1,
+  .end-container h2 {
+    font-size: 32px;
+  }
+  .metric-toggle button,
+  .game-mode-button,
+  .end-buttons button {
+    font-size: 24px;
+    padding: 8px 12px;
+  }
+
+  /* Commodity Card Adjustments */
+  .dual-card,
+  .single-card {
+    width: 95%;
+    padding: 15px;
+  }
+
+  /* Timer Adjustments */
+  .timer {
+    font-size: 1.8rem;
+  }
+
+  /* End Screen Text Adjustments */
+  .end-container h2 {
+    font-size: 72px;
+  }
+  .end-container p {
+    font-size: 32px;
+  }
 }
