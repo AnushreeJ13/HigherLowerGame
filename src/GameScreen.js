@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Howl } from "howler";
 import { fetchCommodity } from "./CommodityObj";
 import backgroundMusic from "./sounds/background.mp3";
-
+import quit from "./sounds/quit.mp3";
 // Import sound files explicitly
 import correctSound from "./sounds/correct.mp3";
 import wrongSound from "./sounds/wrong.mp3";
@@ -12,7 +12,8 @@ import clickSound from "./sounds/click.mp3";
 const sounds = {
   correct: new Howl({ src: [correctSound] }),
   wrong: new Howl({ src: [wrongSound] }),
-  flip: new Howl({ src: [clickSound] })
+  flip: new Howl({ src: [clickSound] }),
+  quit:new Howl({src:[quit]})
 };
 
 // Helper to return different placeholder images for left/right cards.
@@ -244,6 +245,14 @@ function GameScreen({
     startYRef.current = null;
   };
 
+  // --- Quit Handler ---
+  const handleQuit = () => {
+    // Replace this with your desired quit logic.
+    // For demonstration, we redirect to the home page.
+    sounds.quit.play();
+    handleLoss();
+  };
+
   // --- Render UI based on mode ---
   if (metricToggle) {
     // Dual Comparison UI.
@@ -314,6 +323,10 @@ function GameScreen({
           <div className="high-score">High Score: {highScore}</div>
           <div className="current-score">Score: {score}</div>
         </div>
+        {/* Quit Button */}
+        <button className="quit-button" onClick={handleQuit}>
+          Quit
+        </button>
       </div>
     );
   } else {
@@ -367,6 +380,10 @@ function GameScreen({
           <div className="high-score">High Score: {highScore}</div>
           <div className="current-score">Score: {score}</div>
         </div>
+        {/* Quit Button */}
+        <button className="quit-button" onClick={handleQuit}>
+          Quit
+        </button>
       </div>
     );
   }

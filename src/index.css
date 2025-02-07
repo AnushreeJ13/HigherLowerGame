@@ -246,6 +246,25 @@ html, body {
   color: black;
 }
 
+/* Quit Button (for quitting the game in between) */
+.quit-button {
+  position: fixed;
+  bottom: 5px;
+  left: 20px;
+  padding: 10px 20px;
+  background: transparent;
+  font-size: 15px;
+  border: 2px solid lightgrey;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  z-index: 100;
+}
+.quit-button:hover {
+  background: lightgrey;
+  color: black;
+}
+
 /* Timer (Prominent Styling) */
 .timer {
   position: fixed;
@@ -430,20 +449,91 @@ html, body {
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
+  /* Header & End Screen Font Adjustments */
   .header-animation h1,
   .end-container h2 {
     font-size: 40px;
   }
+  .end-container p {
+    font-size: 28px;
+  }
+
+  /* Button Adjustments */
   .metric-toggle button,
   .game-mode-button,
   .end-buttons button {
     font-size: 30px;
     padding: 10px 15px;
   }
+
+  /* Commodity Card Adjustments */
+  .dual-card,
+  .single-card {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+  }
+  .commodity-image {
+    height: auto;
+  }
+
+  /* Layout Adjustments for Comparison Mode */
+  .dual-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Timer font size adjustment */
+  .timer {
+    font-size: 2rem;
+  }
+
+  /* Settings Panel Adjustments */
+  .settings-panel {
+    width: 70%;
+    max-width: none;
+    right: 5%;
+    top: auto;
+    bottom: 5%;
+    transform: translate(0, 0);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Further reduce font sizes and margins */
+  .header-animation h1,
+  .end-container h2 {
+    font-size: 32px;
+  }
+  .metric-toggle button,
+  .game-mode-button,
+  .end-buttons button {
+    font-size: 24px;
+    padding: 8px 12px;
+  }
+
+  /* Commodity Card Adjustments */
+  .dual-card,
+  .single-card {
+    width: 95%;
+    padding: 15px;
+  }
+
+  /* Timer Adjustments */
+  .timer {
+    font-size: 1.8rem;
+  }
+
+  /* End Screen Text Adjustments */
+  .end-container h2 {
+    font-size: 72px;
+  }
+  .end-container p {
+    font-size: 32px;
+  }
 }
 
 /* Global Smooth Scroll Behavior */
-
 
 /* Global Animation Styles */
 :root {
