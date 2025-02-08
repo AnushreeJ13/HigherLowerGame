@@ -378,7 +378,7 @@ html, body {
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
-  background: rgba(69, 83, 67, 0.918);
+  background: rgba(255, 255, 255, 0.1);
 }
 .single-buttons button:hover {
   background: rgba(255, 255, 255, 0.2);
@@ -641,117 +641,41 @@ button:active {
   animation: swipe-left-card 0.6s forwards;
 }
 
-/* ---------------- Responsive Design ---------------- */
 @media screen and (max-width: 768px) {
-  /* Header & End Screen Font Adjustments */
-  .header-animation h1,
-  .end-container h2 {
-    font-size: 40px;
-  }
-  .end-container p {
-    font-size: 28px;
-  }
-
-  /* Button Adjustments */
-  .metric-toggle button,
-  .game-mode-button,
-  .end-buttons button {
-    font-size: 30px;
-    padding: 10px 15px;
-  }
-
-  /* Commodity Card Adjustments */
-  .dual-card,
-  .single-card {
-    width: 90%;
-    height: auto;
+  .start-container {
     padding: 20px;
-  }
-  .commodity-image {
-    height: auto;
+    margin: 0 auto;
   }
 
-  /* Dual Comparison Mode: Stack Cards Vertically */
-  .dual-container {
-    flex-direction: column;
-    gap: 20px;
+  .header-animation h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
   }
 
-  /* Timer Font Size Adjustment */
-  .timer {
-    font-size: 2rem;
+  .header-animation p {
+    font-size: 1rem;
   }
 
-  /* Settings Panel Adjustments */
-  .settings-panel {
-    width: 70%;
-    max-width: none;
-    right: 5%;
-    top: auto;
-    bottom: 5%;
-    transform: translate(0, 0);
-  }
-}
-
-@media screen and (max-width: 480px) {
-  /* Further reduce header & end screen fonts */
-  .header-animation h1,
-  .end-container h2 {
-    font-size: 32px;
-  }
-  .metric-toggle button,
-  .game-mode-button,
-  .end-buttons button {
-    font-size: 24px;
-    padding: 8px 12px;
-  }
-
-  /* Commodity Card Adjustments */
-  .dual-card,
-  .single-card {
-    width: 95%;
-    padding: 15px;
-  }
-
-  /* Timer Adjustments */
-  .timer {
-    font-size: 1.8rem;
-  }
-
-  /* End Screen Text Adjustments */
-  .end-container h2 {
-    font-size: 72px;
-  }
-  .end-container p {
-    font-size: 32px;
-  }
-}
-/* Mobile-First Additions */
-@media screen and (max-width: 768px) {
-  /* Game Mode Buttons Stack Vertically */
   .game-mode-container {
     flex-direction: column;
+    width: 100%;
     gap: 15px;
-    width: 90%;
   }
 
   .game-mode-button {
     width: 100%;
-    padding: 12px 20px;
-    font-size: 18px;
+    padding: 15px;
+    font-size: 1.1rem;
   }
 
-  /* Metric Toggle Stack Vertically */
   .metric-toggle {
     flex-direction: column;
-    gap: 15px;
-    width: 90%;
+    width: 100%;
   }
 
-  /* Commodity Cards Adjustments */
   .dual-container {
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
     margin: 20px 0;
   }
 
@@ -759,161 +683,139 @@ button:active {
   .single-card {
     width: 90%;
     height: auto;
-    min-height: 400px;
+    min-height: 300px;
     padding: 15px;
   }
 
   .commodity-image {
-    height: 200px;
+    height: 150px;
   }
 
-  /* Price Font Sizes */
   .dual-card .price,
   .single-card .price {
-    font-size: 28px;
+    font-size: 1.5rem;
   }
 
-  /* Answer Buttons */
-  .dual-buttons,
-  .single-buttons {
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-  }
-
-  .dual-buttons button,
-  .single-buttons button {
-    width: 100%;
-    padding: 15px;
-    font-size: 18px;
-  }
-
-  /* Header Adjustments */
-  .header-animation h1 {
-    font-size: 32px;
-    line-height: 1.2;
-  }
-
-  .header-animation h2 img {
-    font-size: 24px;
-  }
-
-  /* Timer Positioning */
   .timer {
-    top: 10px;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    top: 15px;
   }
 
-  /* Settings Panel Mobile Optimization */
   .settings-panel {
     width: 90%;
-    max-width: none;
-    right: 5%;
-    left: auto;
-    top: auto;
     bottom: 70px;
+    top: auto;
+    right: 5%;
     transform: none;
-    padding: 15px;
   }
 
-  /* End Screen Adjustments */
   .end-container h2 {
-    font-size: 42px;
-    margin-bottom: 25px;
+    font-size: 2.5rem;
   }
 
   .end-container p {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 1.5rem;
   }
 
   .end-buttons {
     flex-direction: column;
     width: 90%;
-    gap: 15px;
   }
 
   .end-buttons button {
     width: 100%;
-    font-size: 20px;
-    padding: 15px;
+    font-size: 1.2rem;
   }
 }
 
-/* Smaller Phones */
 @media screen and (max-width: 480px) {
-  .start-container {
-    padding: 30px 15px;
-    margin: 20px auto;
+  .header-animation p {
+    font-size: min(2.5vw, 10px);
+    padding: 0 30px;
   }
-
-  .commodity-image {
-    height: 180px;
+  .header-animation h1 {
+    font-size: 2rem;
   }
 
   .dual-card,
   .single-card {
     width: 95%;
-    min-height: 380px;
+    min-height: 250px;
+  }
+
+  .commodity-image {
+    height: 120px;
+  }
+
+  .dual-buttons button,
+  .single-buttons button {
+    padding: 10px;
+    font-size: 1rem;
   }
 
   .timer {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
-  /* Metric Toggle Button Sizes */
-  .metric-toggle button {
-    padding: 12px 15px;
-    font-size: 16px;
-  }
-
-  /* Fixed Buttons Positioning */
   .settings-button,
   .quit-button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
     bottom: 10px;
-    padding: 8px 15px;
-    font-size: 14px;
   }
 
-  .settings-button {
-    right: 15px;
-  }
-
-  .quit-button {
-    left: 15px;
-  }
-
-  /* Result Overlay Size */
   .result-overlay {
-    font-size: 6rem;
+    font-size: 4rem;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header-animation p {
+    font-size: min(2.5vw, 10px);
+    padding: 0 20px;
+  }
+  .header-animation h1 {
+    font-size: 1.8rem;
+  }
+
+  .game-mode-button {
+    font-size: 1rem;
+  }
+
+  .dual-card h2,
+  .single-card h2 {
+    font-size: 1.2rem;
   }
 }
 
 /* Landscape Orientation Adjustments */
 @media screen and (max-height: 500px) and (orientation: landscape) {
   .start-container {
-    padding: 30px 15px;
-    margin: 15px auto;
+    padding: 10px;
   }
 
   .header-animation h1 {
-    font-size: 28px;
+    font-size: 1.5rem;
     margin-bottom: 5px;
   }
 
   .game-mode-container {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 10px;
   }
 
   .game-mode-button {
-    padding: 10px 15px;
-    font-size: 16px;
+    width: auto;
+    padding: 10px;
+    font-size: 0.9rem;
   }
 
   .commodity-card {
-    transform: scale(0.9);
+    transform: scale(0.85);
+  }
+
+  .dual-container {
+    margin: 10px 0;
   }
 }
 
