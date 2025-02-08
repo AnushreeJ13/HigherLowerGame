@@ -231,7 +231,7 @@ html, body {
   transition: background 0.3s ease;
 }
 .music-toggle:hover {
-  background: lightgrey;
+  background: rgb(170, 222, 127);
   color: black;
 }
 .close-settings {
@@ -263,8 +263,8 @@ html, body {
   z-index: 100;
 }
 .quit-button:hover {
-  background: lightgrey;
-  color: black;
+  background: rgb(182, 220, 194);
+  color: rgba(0, 0, 0, 0.77);
 }
 
 /* Timer (Prominent Styling) */
@@ -291,12 +291,12 @@ html, body {
 .single-card {
   width: 300px;
   height: 400px;
-  background: rgba(255, 255, 255, 0.185);
+  background: rgba(50, 78, 48, 0.396);
   padding: 30px;
   border-radius: 15px;
   text-align: center;
   backdrop-filter: blur(5px);
-  border: 3px solid rgba(200, 200, 200, 0.3);
+  border: 3px solid rgba(156, 219, 184, 0.602);
 }
 
 /* Image Styling */
@@ -329,7 +329,7 @@ html, body {
   font-size: 36px;
   font-weight: bold;
   letter-spacing: 5px;
-  color: #aaa;
+  color: #aaaaaa;
 }
 .dual-buttons {
   display: flex;
@@ -378,7 +378,7 @@ html, body {
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(69, 83, 67, 0.918);
 }
 .single-buttons button:hover {
   background: rgba(255, 255, 255, 0.2);
@@ -445,7 +445,7 @@ html, body {
   transition: 0.3s ease;
 }
 .end-buttons button:hover {
-  background-color: white;
+  background-color: rgb(182, 236, 180);
   color: black;
 }
 
@@ -542,7 +542,7 @@ html, body {
   left: 0;
   width: 100%;
   height: 2px;
-  background: white;
+  background: rgb(163, 231, 189);
   transform: scaleX(0);
   transition: transform 0.6s var(--ease-power4);
   z-index: -1;
@@ -724,5 +724,202 @@ button:active {
   }
   .end-container p {
     font-size: 32px;
+  }
+}
+/* Mobile-First Additions */
+@media screen and (max-width: 768px) {
+  /* Game Mode Buttons Stack Vertically */
+  .game-mode-container {
+    flex-direction: column;
+    gap: 15px;
+    width: 90%;
+  }
+
+  .game-mode-button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 18px;
+  }
+
+  /* Metric Toggle Stack Vertically */
+  .metric-toggle {
+    flex-direction: column;
+    gap: 15px;
+    width: 90%;
+  }
+
+  /* Commodity Cards Adjustments */
+  .dual-container {
+    flex-direction: column;
+    gap: 25px;
+    margin: 20px 0;
+  }
+
+  .dual-card,
+  .single-card {
+    width: 90%;
+    height: auto;
+    min-height: 400px;
+    padding: 15px;
+  }
+
+  .commodity-image {
+    height: 200px;
+  }
+
+  /* Price Font Sizes */
+  .dual-card .price,
+  .single-card .price {
+    font-size: 28px;
+  }
+
+  /* Answer Buttons */
+  .dual-buttons,
+  .single-buttons {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .dual-buttons button,
+  .single-buttons button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+  }
+
+  /* Header Adjustments */
+  .header-animation h1 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .header-animation h2 img {
+    font-size: 24px;
+  }
+
+  /* Timer Positioning */
+  .timer {
+    top: 10px;
+    font-size: 1.8rem;
+  }
+
+  /* Settings Panel Mobile Optimization */
+  .settings-panel {
+    width: 90%;
+    max-width: none;
+    right: 5%;
+    left: auto;
+    top: auto;
+    bottom: 70px;
+    transform: none;
+    padding: 15px;
+  }
+
+  /* End Screen Adjustments */
+  .end-container h2 {
+    font-size: 42px;
+    margin-bottom: 25px;
+  }
+
+  .end-container p {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .end-buttons {
+    flex-direction: column;
+    width: 90%;
+    gap: 15px;
+  }
+
+  .end-buttons button {
+    width: 100%;
+    font-size: 20px;
+    padding: 15px;
+  }
+}
+
+/* Smaller Phones */
+@media screen and (max-width: 480px) {
+  .start-container {
+    padding: 30px 15px;
+    margin: 20px auto;
+  }
+
+  .commodity-image {
+    height: 180px;
+  }
+
+  .dual-card,
+  .single-card {
+    width: 95%;
+    min-height: 380px;
+  }
+
+  .timer {
+    font-size: 1.5rem;
+  }
+
+  /* Metric Toggle Button Sizes */
+  .metric-toggle button {
+    padding: 12px 15px;
+    font-size: 16px;
+  }
+
+  /* Fixed Buttons Positioning */
+  .settings-button,
+  .quit-button {
+    bottom: 10px;
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+
+  .settings-button {
+    right: 15px;
+  }
+
+  .quit-button {
+    left: 15px;
+  }
+
+  /* Result Overlay Size */
+  .result-overlay {
+    font-size: 6rem;
+  }
+}
+
+/* Landscape Orientation Adjustments */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .start-container {
+    padding: 30px 15px;
+    margin: 15px auto;
+  }
+
+  .header-animation h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+  }
+
+  .game-mode-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .game-mode-button {
+    padding: 10px 15px;
+    font-size: 16px;
+  }
+
+  .commodity-card {
+    transform: scale(0.9);
+  }
+}
+
+/* Prevent Zoom on Input */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px;
   }
 }
