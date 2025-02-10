@@ -10,9 +10,8 @@ function StartScreen({ handleStart, metricToggle, setMetricToggle, isMusicOn, to
       <div className="header-animation">
         
         <h1>PRICE CLASH</h1>
-        <h2>
-            <img src={header_image}/>
-        </h2>
+          <img src={header_image}/>
+        
         <p>
             
           Test your market instincts by predicting whether a commodity is valued higher or lower than its competitor.
