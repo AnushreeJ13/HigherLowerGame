@@ -21,7 +21,6 @@ function StartScreen({ handleStart, metricToggle, setMetricToggle, isMusicOn, to
       </div>
 
       <div className="game-mode-container">
-        <br/>
         <button className="game-mode-button" onClick={() => handleStart("Classic")}>
           Classic
         </button>
@@ -44,10 +43,12 @@ function StartScreen({ handleStart, metricToggle, setMetricToggle, isMusicOn, to
           Single Price Prediction
         </button>
       </div>
-
-      <button className="settings-button" onClick={() => setShowSettings(true)}>
-        Settings
-      </button>
+      <div classname="settings">
+        <button className="settings-button" onClick={() => setShowSettings(true)}>
+          Settings
+        </button>
+      </div>
+      
 
       {showSettings && (
         <div className="settings-panel">
