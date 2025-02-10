@@ -8,7 +8,6 @@ function StartScreen({ handleStart, metricToggle, setMetricToggle, isMusicOn, to
     <div className="start-container">
         
       <div className="header-animation">
-        
         <h1>PRICE CLASH</h1>
           <img src={header_image}/>
         
