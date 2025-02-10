@@ -107,14 +107,14 @@ html, body {
 }
 .header-animation h1 {
   word-wrap: break-word;
-  width: 80vw;
+  width: 90vw;
   font-size: 65px;
   letter-spacing: 2.5px;
   margin-bottom: 10px;
   animation: floating 6s infinite var(--ease-power4);
 }
 .header-animation img {
-  width:50vw;
+  width:55vw;
   font-size: 40px;
   margin-bottom: 26px;
   
