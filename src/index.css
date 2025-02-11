@@ -146,12 +146,12 @@ html, body {
 }
 .game-mode-button {
   padding: 10px 20px;
-  width:16vw;
+  width:30vw;
   background-color: var(--primary-color);
   border: 1px solid transparent;
   border-radius: 10px;
   color: rgb(10, 43, 22);
-  font-size: 20px;
+  font-size: 24px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
@@ -186,15 +186,16 @@ html, body {
   margin-bottom: 40px;
 }
 .metric-toggle button {
-  width:40vw;
-  padding: 10px 20px;
+  width:50vw;
+  padding: 10px;
   background: transparent;
-  font-size: 18px;
-  border: 2px solid lightgrey;
+  font-size: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border: 3px solid rgb(232, 236, 231);
   border-radius: 50px;
   transition: background 0.3s ease;
   position: relative;
-  overflow-x: hidden;
+  
 }
 .metric-toggle button::after {
   content: '';
@@ -208,9 +209,12 @@ html, body {
   transition: transform 0.6s var(--ease-power4);
   z-index: -1;
 }
-.metric-toggle button.active,
 .metric-toggle button:hover {
-  background: lightgrey;
+  background: rgba(117, 119, 117, 0.653);
+  color: rgb(1, 1, 17);
+}
+.metric-toggle button.active{
+  background: rgba(139, 147, 139, 0.889);
   color: rgb(1, 1, 17);
 }
 .metric-toggle button.active::after,
@@ -438,7 +442,7 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 10rem;
-  animation: enhanced-pop 0.8s var(--ease-elastic), text-glitch 0.8s steps(2) infinite alternate;
+  animation: enhanced-pop 0.8s var(--ease-elastic), text-glitch 2.0 s steps(2) infinite alternate;
 }
 @keyframes enhanced-pop {
   0% {
@@ -460,52 +464,116 @@ html, body {
 .correct { color: var(--correct-color); }
 .wrong   { color: var(--accent-color); }
 
-/* Scoreboard */
+/* Scoreboard with Graphic Background and Slide Down Effect */
 .score-board {
   position: fixed;
   top: 20px;
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   padding: 0 2rem;
   font-size: 1.2rem;
+  /* A gradient background gives a more graphic look */
+  background: linear-gradient(45deg, rgba(175, 236, 191, 0.213), rgba(0,0,0,0.3));
+  color: #fff;
+  border-radius: 10px;
+  animation: slideDown 1s ease-out forwards;
+  animation-delay: 0.2s;
 }
 
-/* End Screen */
+/* End Screen Container */
 .end-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
   text-align: center;
+  width: 100vw;
+  height: 100vh;
+  animation: fadeIn 1s ease-out forwards;
+}
+.end-container1 {
+  display:inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  height: auto;
   padding: 20px;
+  animation: fadeIn 1s ease-out forwards;
+  border-radius: 30px;
+  border: 3px solid rgb(140, 162, 140);
 }
+
+/* Game Over Image */
+.end-container img {
+  width: 30vw;
+  animation: scaleIn 1s ease-out forwards;
+  animation-delay: 0.2s;  /* Appears quickly with the game over text */
+}
+
+/* Game Over Text */
 .end-container h2 {
+  
+  width: 50vw;
   font-size: 90px;
-  margin-bottom: 50px;
+  color: #e9f3e9;
+  animation: slideDown 1s ease-out forwards;
+  animation-delay: 0.2s;  /* In sync with the image */
+  margin-bottom: 20px;
 }
-.end-container p {
+
+/* Final and High Score Display */
+.end-container1 p {
+  
   font-size: 40px;
   margin-bottom: 30px;
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 1.2s;  /* Appears after about one second */
 }
+
+/* Buttons: Try Again & Main Menu */
 .end-buttons {
-  display: flex;
-  gap: 30px;
+  
+  gap: 10px;
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 1.5s;  /* Fades in shortly after the score */
+  transform: translate(15px, -35px);
 }
+
 .end-buttons button {
-  width: 250px;
-  padding: 10px;
+  width: 20vw;
   background-color: transparent;
   font-size: 40px;
-  border: 2px solid white;
-  border-radius: 50px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border: 2px solid rgb(120, 118, 118);
+  border-radius: 30px;
   transition: 0.3s ease;
+  padding:15px 15px;
 }
+
 .end-buttons button:hover {
-  background-color: rgb(182, 236, 180);
+  background-color: rgb(88, 135, 87);
   color: black;
 }
+
+/* Keyframe Definitions for Animations */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideDown {
+  0% { transform: translateY(-50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
 
 /* Loading Container & Spinner */
 .loading-container {
@@ -601,21 +669,8 @@ html, body {
     font-size: 1.2rem;
     padding: 0 20px;
   }
-  .game-mode-container {
-    margin-left: 75px;
-    flex-direction: column;
-    align-items: center;
-    
-  }
-  .game-mode-button {
-    margin-right:100px;
-    width: 70%;
-    font-size: 1.1rem;
-  }
-  .metric-toggle {
-    flex-direction: column;
-    width: 100%;
-  }
+  
+  
   .dual-container {
     flex-direction: column;
     gap: 20px;
@@ -668,6 +723,9 @@ html, body {
 
   .header-animation h1 {
     font-size: 2rem;
+  }
+  .header-animation img{
+    width:70vw;
   }
   .header-animation p {
     font-size: 1.2rem;
