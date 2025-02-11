@@ -486,10 +486,8 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100vw;
-  height: 100vh;
+  width: 90vw;
+  
   animation: fadeIn 1s ease-out forwards;
 }
 .end-container1 {
@@ -508,15 +506,19 @@ html, body {
 
 /* Game Over Image */
 .end-container img {
+  align-items: flex-start;
   width: 30vw;
+  height: auto;
   animation: scaleIn 1s ease-out forwards;
   animation-delay: 0.2s;  /* Appears quickly with the game over text */
 }
 
 /* Game Over Text */
-.end-container h2 {
-  
+.end-container1 h2 {
+  text-align: center;
+  align-items: center;
   width: 50vw;
+  height: 12vh;
   font-size: 90px;
   color: #e9f3e9;
   animation: slideDown 1s ease-out forwards;
@@ -526,7 +528,7 @@ html, body {
 
 /* Final and High Score Display */
 .end-container1 p {
-  
+  height: 5vh;
   font-size: 40px;
   margin-bottom: 30px;
   animation: fadeIn 1s ease-out forwards;
@@ -656,19 +658,7 @@ html, body {
 
 /* For tablets and small laptops (max-width: 768px) */
 @media screen and (max-width: 768px) {
-  .start-container {
-    
-    padding: 40px 20px;
-    margin: 20px auto;
-  }
-  .header-animation h1 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-  }
-  .header-animation p {
-    font-size: 1.2rem;
-    padding: 0 20px;
-  }
+  
   
   
   .dual-container {
@@ -707,6 +697,8 @@ html, body {
   .end-container p {
     font-size: 1.5rem;
   }
+  
+  
   .end-buttons {
     flex-direction: column;
     width: 90%;
@@ -721,16 +713,7 @@ html, body {
 @media screen and (max-width: 480px) {
   
 
-  .header-animation h1 {
-    font-size: 2rem;
-  }
-  .header-animation img{
-    width:70vw;
-  }
-  .header-animation p {
-    font-size: 1.2rem;
-    padding: 0 20px;
-  }
+ 
   .dual-card,
   .single-card {
     width: 95%;
@@ -755,19 +738,14 @@ html, body {
   .result-overlay {
     font-size: 4rem;
   }
+  
+  
+  
 }
 
 /* For very small phones (max-width: 320px) */
 @media screen and (max-width: 320px) {
   
-  .header-animation h1 {
-    font-size: 1.8rem;
-  }
-  .header-animation p {
-    word-wrap:break-word;
-    font-size: 1.0rem;
-    padding: 0 15px;
-  }
   .game-mode-button {
     font-size: 1rem;
   }
@@ -775,5 +753,6 @@ html, body {
   .single-card h2 {
     font-size: 1.2rem;
   }
+  
 }
 
