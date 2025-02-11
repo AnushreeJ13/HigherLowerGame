@@ -659,8 +659,13 @@ html, body {
 /* For tablets and small laptops (max-width: 768px) */
 @media screen and (max-width: 768px) {
   
+  .header-animation  h1{
+    width:90vw;
+  }
   
-  
+  .header-animation img{
+    width:70vw;
+  }
   .dual-container {
     flex-direction: column;
     gap: 20px;
@@ -711,7 +716,13 @@ html, body {
 
 /* For phones (max-width: 480px) */
 @media screen and (max-width: 480px) {
+  .header-animation  h1{
+    width:90vw;
+  }
   
+  .header-animation img{
+    width:70vw;
+  }
 
  
   .dual-card,
@@ -745,7 +756,13 @@ html, body {
 
 /* For very small phones (max-width: 320px) */
 @media screen and (max-width: 320px) {
+  .header-animation  h1{
+    width:90vw;
+  }
   
+  .header-animation img{
+    width:70vw;
+  }
   .game-mode-button {
     font-size: 1rem;
   }
