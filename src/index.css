@@ -222,13 +222,18 @@ html, body {
   transform: scaleX(1);
 }
 .settings{
+  
+  display: flex;
+  flex-direction: column;
+  align-content: end;
+  justify-content: center;
   position:relative;
+  
 }
 /* Settings Button & Panel */
 .settings-button { 
- position:relative;
   position: absolute;
-  right: 0;
+  left: 150px;
   
   padding: 10px 20px;
   background: transparent;
@@ -724,7 +729,7 @@ html, body {
   }
   
   .header-animation img{
-    width:70vw;
+    width:90vw;
   }
 
  
@@ -761,11 +766,11 @@ html, body {
 /* For very small phones (max-width: 320px) */
 @media screen and (max-width: 320px) {
   .header-animation  h1{
-    width:90vw;
+    width:80vw;
   }
   
   .header-animation img{
-    width:70vw;
+    width:100vw;
   }
   .game-mode-button {
     font-size: 1rem;
