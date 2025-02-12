@@ -7,6 +7,8 @@ function EndScreen({ score, highScore, restart, returnToMenu }) {
        <div className="end-container1">
       <h2>Game Over!</h2>
       <br/>
+      <br/>
+      <br/>
      
       <p>Final Score: {score}</p>
       <p>High Score: {highScore}</p>
@@ -14,7 +16,7 @@ function EndScreen({ score, highScore, restart, returnToMenu }) {
       <br/>
       <br/>
       <div className="end-buttons">
-        <img src={end}></img>
+       
         <button onClick={restart}>Try Again</button>
         <button onClick={returnToMenu}>Main Menu</button>
       </div>

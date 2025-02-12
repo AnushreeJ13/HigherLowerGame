@@ -9,11 +9,15 @@ import correctSound from "./sounds/correct.mp3";
 import wrongSound from "./sounds/wrong.mp3";
 import clickSound from "./sounds/click.mp3";
 
+// Import AOS and its styles
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const sounds = {
   correct: new Howl({ src: [correctSound] }),
   wrong: new Howl({ src: [wrongSound] }),
   flip: new Howl({ src: [clickSound] }),
-  quit:new Howl({src:[quit]})
+  quit: new Howl({ src: [quit] })
 };
 
 // Helper to return different placeholder images for left/right cards.
@@ -62,6 +66,14 @@ function GameScreen({
   // Refs for swipe detection (if using pointer input)
   const startXRef = useRef(null);
   const startYRef = useRef(null);
+
+  // Initialize AOS on component mount (entry animations only)
+  useEffect(() => {
+    AOS.init({
+      once: true,      // Animate only once when the element enters the viewport
+      duration: 1000   // Default duration for entry animations
+    });
+  }, []);
 
   // Initialize commodities when data or mode changes.
   useEffect(() => {
@@ -267,8 +279,13 @@ function GameScreen({
           <div className="timer">⏳ {timerValue}s</div>
         )}
         <div className="dual-container">
-          {/* Left Commodity Card */}
-          <div className="commodity-card dual-card">
+          {/* Left Commodity Card with AOS entry animation */}
+          <div
+            key={leftCommodity ? leftCommodity.name : "left-commodity"}
+            className="commodity-card dual-card"
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
             {leftCommodity && (
               <>
                 <img
@@ -283,8 +300,14 @@ function GameScreen({
               </>
             )}
           </div>
-          {/* Right Commodity Card */}
-          <div className="commodity-card dual-card">
+          {/* Right Commodity Card with AOS entry animation and delay */}
+          <div
+            key={rightCommodity ? rightCommodity.name : "right-commodity"}
+            className="commodity-card dual-card"
+            data-aos="fade-left"
+            data-aos-duration="800"
+            data-aos-delay="400"
+          >
             {rightCommodity && (
               <>
                 <img
@@ -342,7 +365,13 @@ function GameScreen({
           <div className="timer">⏳ {timerValue}s</div>
         )}
         <div className="single-container">
-          <div className="commodity-card single-card">
+          {/* Single Commodity Card with AOS entry animation */}
+          <div
+            key={currentCommodity ? currentCommodity.name : "current-commodity"}
+            className="commodity-card single-card"
+            data-aos="fade-up"
+            data-aos-duration="800"
+          >
             {currentCommodity && (
               <>
                 <img
