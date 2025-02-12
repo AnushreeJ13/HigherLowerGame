@@ -114,10 +114,9 @@ html, body {
   animation: floating 6s infinite var(--ease-power4);
 }
 .header-animation img {
-  width:60vw;
+  width: 60vw;
   font-size: 40px;
   margin-bottom: 26px;
-  
 }
 .header-animation p {
   width: 80vw;
@@ -138,7 +137,7 @@ html, body {
 /* Game Mode Buttons (Start Screen) */
 .game-mode-container {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
@@ -146,7 +145,7 @@ html, body {
 }
 .game-mode-button {
   padding: 10px 20px;
-  width:30vw;
+  width: 30vw;
   background-color: var(--primary-color);
   border: 1px solid transparent;
   border-radius: 10px;
@@ -186,7 +185,7 @@ html, body {
   margin-bottom: 40px;
 }
 .metric-toggle button {
-  width:50vw;
+  width: 50vw;
   padding: 10px;
   background: transparent;
   font-size: 20px;
@@ -195,7 +194,6 @@ html, body {
   border-radius: 50px;
   transition: background 0.3s ease;
   position: relative;
-  
 }
 .metric-toggle button::after {
   content: '';
@@ -213,7 +211,7 @@ html, body {
   background: rgba(117, 119, 117, 0.653);
   color: rgb(1, 1, 17);
 }
-.metric-toggle button.active{
+.metric-toggle button.active {
   background: rgba(139, 147, 139, 0.889);
   color: rgb(1, 1, 17);
 }
@@ -221,20 +219,18 @@ html, body {
 .metric-toggle button:hover::after {
   transform: scaleX(1);
 }
-.settings{
-  
+
+/* Settings Button & Panel */
+.settings {
   display: flex;
   flex-direction: column;
   align-content: end;
   justify-content: center;
-  position:relative;
-  
+  position: relative;
 }
-/* Settings Button & Panel */
-.settings-button { 
+.settings-button {
   position: absolute;
   left: 150px;
-  
   padding: 10px 20px;
   background: transparent;
   font-size: 15px;
@@ -456,7 +452,7 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 10rem;
-  animation: enhanced-pop 0.8s var(--ease-elastic), text-glitch 2.0 s steps(2) infinite alternate;
+  animation: enhanced-pop 0.8s var(--ease-elastic), text-glitch 2.0s steps(2) infinite alternate;
 }
 @keyframes enhanced-pop {
   0% {
@@ -487,7 +483,6 @@ html, body {
   justify-content: space-between;
   padding: 0 2rem;
   font-size: 1.2rem;
-  /* A gradient background gives a more graphic look */
   background: linear-gradient(45deg, rgba(175, 236, 191, 0.213), rgba(0,0,0,0.3));
   color: #fff;
   border-radius: 10px;
@@ -502,11 +497,10 @@ html, body {
   text-align: center;
   flex-direction: column;
   justify-content: center;
-  
   animation: fadeIn 1s ease-out forwards;
 }
 .end-container1 {
-  display:inline-flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -519,17 +513,14 @@ html, body {
   border: 3px solid rgb(140, 162, 140);
 }
 
-
-
 /* Game Over Text */
 .end-container1 h2 {
-  
   width: 50vw;
   height: 12vh;
   font-size: 90px;
   color: #e9f3e9;
   animation: slideDown 1s ease-out forwards;
-  animation-delay: 0.2s;  /* In sync with the image */
+  animation-delay: 0.2s;
   margin-bottom: 20px;
 }
 
@@ -539,15 +530,14 @@ html, body {
   font-size: 40px;
   margin-bottom: 30px;
   animation: fadeIn 1s ease-out forwards;
-  animation-delay: 1.2s;  /* Appears after about one second */
+  animation-delay: 1.2s;
 }
 
 /* Buttons: Try Again & Main Menu */
 .end-buttons {
-  
   gap: 10px;
   animation: fadeIn 1s ease-out forwards;
-  animation-delay: 1.5s;  /* Fades in shortly after the score */
+  animation-delay: 1.5s;
   transform: translate(15px, -35px);
 }
 
@@ -559,7 +549,7 @@ html, body {
   border: 2px solid rgb(120, 118, 118);
   border-radius: 30px;
   transition: 0.3s ease;
-  padding:15px 15px;
+  padding: 15px 15px;
 }
 
 .end-buttons button:hover {
@@ -582,7 +572,6 @@ html, body {
   0% { transform: translateY(-50px); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }
 }
-
 
 /* Loading Container & Spinner */
 .loading-container {
@@ -661,17 +650,14 @@ html, body {
   animation: swipe-left-card 0.6s forwards;
 }
 
-/* Responsive Styles for Phone View */
-
+/* Responsive Styles for Mobile and Tablets */
 /* For tablets and small laptops (max-width: 768px) */
 @media screen and (max-width: 768px) {
-  
-  .header-animation  h1{
-    width:90vw;
+  .header-animation h1 {
+    width: 90vw;
   }
-  
-  .header-animation img{
-    width:70vw;
+  .header-animation img {
+    width: 70vw;
   }
   .dual-container {
     flex-direction: column;
@@ -704,14 +690,12 @@ html, body {
     transform: none;
   }
   .end-container h2 {
-    font-size: 70px;
+    font-size: 60px;
     text-overflow: clip;
   }
   .end-container p {
     font-size: 1.5rem;
   }
-  
-  
   .end-buttons {
     flex-direction: column;
     width: 90%;
@@ -724,15 +708,12 @@ html, body {
 
 /* For phones (max-width: 480px) */
 @media screen and (max-width: 480px) {
-  .header-animation  h1{
-    width:90vw;
+  .header-animation h1 {
+    width: 90vw;
   }
-  
-  .header-animation img{
-    width:90vw;
+  .header-animation img {
+    width: 90vw;
   }
-
- 
   .dual-card,
   .single-card {
     width: 95%;
@@ -758,19 +739,23 @@ html, body {
     font-size: 4rem;
   }
   
-  
-  
+  /* Adjust settings button position for mobile */
+  .settings-button {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    z-index: 200;
+  }
   
 }
 
 /* For very small phones (max-width: 320px) */
 @media screen and (max-width: 320px) {
-  .header-animation  h1{
-    width:80vw;
+  .header-animation h1 {
+    width: 80vw;
   }
-  
-  .header-animation img{
-    width:100vw;
+  .header-animation img {
+    width: 100vw;
   }
   .game-mode-button {
     font-size: 1rem;
@@ -779,6 +764,4 @@ html, body {
   .single-card h2 {
     font-size: 1.2rem;
   }
-  
 }
-
