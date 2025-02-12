@@ -375,7 +375,8 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 35px;
-  margin: 40px 0;
+  margin: 80px 0;
+
 }
 .dual-card h2 {
   font-size: 28px;
@@ -415,7 +416,7 @@ html, body {
 .single-container {
   display: flex;
   justify-content: center;
-  margin: 40px 0;
+  margin: 80px 0;
 }
 .single-card h2 {
   font-size: 28px;
@@ -476,8 +477,8 @@ html, body {
 
 /* Scoreboard with Graphic Background and Slide Down Effect */
 .score-board {
-  position: fixed;
-  top: 20px;
+  position: absolute;
+  top: 10px;
   width: 100vw;
   display: flex;
   justify-content: space-between;
@@ -714,9 +715,10 @@ html, body {
   .header-animation img {
     width: 90vw;
   }
+  
   .dual-card,
   .single-card {
-    width: 95%;
+    width: 85vw;
     min-height: 250px;
   }
   .commodity-image {
